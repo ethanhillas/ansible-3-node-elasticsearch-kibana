@@ -1,0 +1,17 @@
+[es_hosts]
+192.168.60.2
+192.168.60.3
+192.168.60.4
+
+[kibana_hosts]
+192.168.60.5
+
+# Group has all the servers
+[all_servers:children]
+es_hosts
+kibana_hosts
+
+# vars for all servers
+[all_servers:vars]
+ansible_user=vagrant
+ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
