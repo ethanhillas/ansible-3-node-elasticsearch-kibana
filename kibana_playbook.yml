@@ -1,0 +1,6 @@
+- hosts: kibana_hosts
+  become: true
+  roles:
+    - role: geerlingguy.kibana
+  vars:
+    kibana_elasticsearch_url: http://192.168.60.2:9200
