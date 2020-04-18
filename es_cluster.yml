@@ -1,0 +1,28 @@
+---
+#############################
+## Build 3-node ES cluster ##
+#############################
+
+# Install and configure Elasticsearch on all servers in es_hosts group
+# Note:
+#   - Each node is master eligible
+#   - Each node is a data node
+- hosts: es_hosts 
+  roles: 
+    - role: elastic.elasticsearch
+  vars:
+    es_version: 7.6.2
+    es_config:
+      cluster.name: "test-cluster"
+      cluster.initial_master_nodes: "es1-orc,es2-orc,es3-orc"
+      discovery.seed_hosts: "es1-orc,es2-orc,es3-orc"
+      network.host: "{{ hostvars[inventory_hostname].ansible_host }}"
+      http.port: 9200
+      transport.port: 9300
+      node.data: true
+      node.master: true
+      bootstrap.memory_lock: true
+    es_heap_size: "1g"
+    es_api_host: "{{ hostvars[inventory_hostname].ansible_host }}"
+    es_plugins:
+     - plugin: ingest-attachment

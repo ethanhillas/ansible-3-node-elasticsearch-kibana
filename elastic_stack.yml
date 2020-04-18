@@ -1,0 +1,27 @@
+---
+######################################
+## Build 3-node ES cluster & Kibana ##
+######################################
+
+# For vagrant development environment there is no DNS support
+# need to add all servers to the /etc/hosts file
+- hosts: all_servers
+  tasks:
+  - name: Update the /etc/hosts file with node name
+    become: true
+    lineinfile:
+      path: "/etc/hosts"
+      regexp: ".*\t{{ item }}\t{{ item }}"
+      line: "{{ hostvars[item].ansible_host }}\t{{ item }}\t{{ item }}"
+      state: present
+      backup: yes
+    when: inventory_hostname != "{{ item }}" or inventory_hostname == "{{ item }}"
+    with_items: "{{groups['all_servers']}}"
+
+# Playbook: es_cluster.yml 
+# Install and configure elasticsearch on each server in es_hosts group
+- import_playbook: es_cluster.yml
+
+# Playbook: kibana.yml
+# Install and configure kibana on each server in kibana_hosts group
+- import_playbook: kibana.yml

@@ -1,0 +1,12 @@
+---
+####################
+## Install Kibana ##
+####################
+
+# Install and configure Kibana on all servers in kibana_hosts group
+- hosts: kibana_hosts
+  become: true
+  roles:
+    - role: geerlingguy.kibana
+  vars:
+    kibana_elasticsearch_url: "['http://es1-orc:9200','http://es2-orc:9200','http://es3-orc:9200']"

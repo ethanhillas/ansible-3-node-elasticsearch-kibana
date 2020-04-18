@@ -21,22 +21,22 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "es1" do |es|
-    es.vm.hostname = "es1-orc.test"
+    es.vm.hostname = "es1-orc"
     es.vm.network :private_network, ip: "192.168.60.2"
   end
 
   config.vm.define "es2" do |es|
-    es.vm.hostname = "es2-orc.test"
+    es.vm.hostname = "es2-orc"
     es.vm.network :private_network, ip: "192.168.60.3"
   end
 
   config.vm.define "es3" do |es|
-    es.vm.hostname = "es3-orc.test"
+    es.vm.hostname = "es3-orc"
     es.vm.network :private_network, ip: "192.168.60.4"
   end
 
   config.vm.define "kibana" do |es|
-    es.vm.hostname = "kibana-orc.test"
+    es.vm.hostname = "kibana-orc"
     es.vm.network :private_network, ip: "192.168.60.5"
   end
 
